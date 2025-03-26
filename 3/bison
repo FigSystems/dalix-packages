@@ -20,6 +20,8 @@ makedepends=(
   gawk
   grep
   m4
+  diffutils
+  perl
 )
 
 function build() {
