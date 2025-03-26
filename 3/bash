@@ -9,6 +9,8 @@ sources=(
 
 depends=(
   glibc
+  readline
+  ncurses
 )
 
 makedepends=(
@@ -19,6 +21,8 @@ makedepends=(
   sed
   gawk
   grep
+  readline
+  ncurses
 )
 
 function build() {
@@ -27,4 +31,7 @@ function build() {
     --without-bash-malloc \
     --with-installed-readline \
     --docdir=/usr/share/doc/bash-$pkgdir
+  make
+  make DESTDIR=$pkgdir install
+  ln -sv bash $pkgdir/usr/bin/sh
 }
