@@ -1,0 +1,21 @@
+#!/bin/bash
+
+pkgname="gzip"
+pkgver="1.13"
+
+sources=(
+  "https://ftp.gnu.org/gnu/gzip/gzip-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd gzip-$pkgver
+  ./configure --prefix=/usr --host=x86_64-dalix-linux-gnu
+  make
+  make DESTDIR=$pkgdir install
+}

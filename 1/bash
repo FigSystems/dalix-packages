@@ -1,0 +1,27 @@
+#!/bin/bash
+
+pkgname="bash"
+pkgver="5.2.37"
+
+sources=(
+  "https://ftp.gnu.org/gnu/bash/bash-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+  ncurses
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd bash-$pkgver
+  ./configure --prefix=/usr \
+    --build=$(sh support/config.guess) \
+    --host=x86_64-dalix-linux-gnu \
+    --without-bash-malloc
+  echo '#include <unistd.h>' | cat - lib/termcap/tparam.c >temp && mv temp lib/termcap/tparam.c
+  make
+  make DESTDIR=$pkgdir install
+  ln -sv bash $pkgdir/usr/bin/sh
+}

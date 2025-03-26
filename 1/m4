@@ -1,0 +1,23 @@
+#!/bin/bash
+
+pkgname="m4"
+pkgver="1.4.19"
+
+sources=(
+  "https://ftp.gnu.org/gnu/m4/m4-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd m4-$pkgver
+  ./configure --prefix=/usr \
+    --host=x86_64-dalix-linux-gnu \
+    --build=$(build-aux/config.guess)
+  make
+  make DESTDIR=$pkgdir install
+}

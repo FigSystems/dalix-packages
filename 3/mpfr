@@ -1,0 +1,38 @@
+#!/bin/bash
+
+pkgname="mpfr"
+pkgver="4.2.1"
+
+sources=(
+  "https://ftp.gnu.org/gnu/mpfr/mpfr-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+  gmp
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  gmp
+  texinfo
+)
+
+function build() {
+  cd mpfr-$pkgver
+  ./configure --prefix=/usr \
+    --disable-static \
+    --enable-thread-safe \
+    --docdir=/usr/share/doc/mpfr-$pkgver
+  make
+  make html
+  make check
+  make DESTDIR=$pkgdir install
+  make DESTDIR=$pkgdir install-html
+}

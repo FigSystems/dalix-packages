@@ -1,0 +1,31 @@
+#!/bin/bash
+
+pkgname="xz"
+pkgver="5.6.4"
+
+sources=(
+  "https://github.com//tukaani-project/xz/releases/download/v$pkgver/xz-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd xz-$pkgver
+  ./configure --prefix=/usr \
+    --disable-static \
+    --docdir=/usr/share/doc/xz-$pkgver
+  make
+  make DESTDIR=$pkgdir install
+}

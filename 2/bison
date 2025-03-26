@@ -1,0 +1,32 @@
+#!/bin/bash
+
+pkgname="bison"
+pkgver="3.8.2"
+
+sources=(
+  "https://ftp.gnu.org/gnu/bison/bison-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  make
+  gcc
+  binutils
+  sed
+  grep
+  m4
+  gawk
+  diffutils
+)
+
+function build() {
+  cd bison-$pkgver
+  ./configure --prefix=/usr \
+    --docdir=/usr/share/doc/bison-$pkgver
+  make
+  make DESTDIR=$pkgdir install
+}

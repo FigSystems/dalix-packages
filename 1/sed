@@ -1,0 +1,23 @@
+#!/bin/bash
+
+pkgname="sed"
+pkgver="4.9"
+
+sources=(
+  "https://ftp.gnu.org/gnu/sed/sed-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd sed-$pkgver
+  ./configure --prefix=/usr \
+    --host=x86_64-dalix-linux-gnu \
+    --build=$(./build-aux/config.guess)
+  make
+  make DESTDIR=$pkgdir install
+}

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+pkgname="findutils"
+pkgver="4.10.0"
+
+sources=(
+  "https://ftp.gnu.org/gnu/findutils/findutils-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd findutils-$pkgver
+  ./configure --prefix=/usr \
+    --localstatedir=/var/lib/locate \
+    --host=x86_64-dalix-linux-gnu \
+    --build=$(build-aux/config.guess)
+
+  make
+  make DESTDIR=$pkgdir install
+}

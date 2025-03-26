@@ -1,0 +1,24 @@
+#!/bin/bash
+
+pkgname="make"
+pkgver="4.4.1"
+
+sources=(
+  "https://ftp.gnu.org/gnu/make/make-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd make-$pkgver
+  ./configure --prefix=/usr \
+    --without-guile \
+    --host=x86_64-dalix-linux-gnu \
+    --build=$(build-aux/config.guess)
+  make
+  make DESTDIR=$pkgdir install
+}

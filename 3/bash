@@ -1,0 +1,30 @@
+#!/bin/bash
+
+pkgname="bash"
+pkgver="5.2.37"
+
+sources=(
+  "https://ftp.gnu.org/gnu/bash/bash-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd bash-$pkgver
+  ./configure --prefix=/usr \
+    --without-bash-malloc \
+    --with-installed-readline \
+    --docdir=/usr/share/doc/bash-$pkgdir
+}

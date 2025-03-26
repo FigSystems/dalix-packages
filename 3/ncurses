@@ -1,0 +1,45 @@
+#!/bin/bash
+
+pkgname="ncurses"
+pkgver="6.5"
+
+sources=(
+  "https://invisible-mirror.net/archives/ncurses/ncurses-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd ncurses-$pkgver
+  ./configure --prefix=/usr \
+    --mandir=/usr/share/man \
+    --with-shared \
+    --without-debug \
+    --without-normal \
+    --with-cxx-shared \
+    --enable-pc-files \
+    --with-pkg-config-libdir=/usr/lib/pkgconfig
+  make
+  make DESTDIR=$pkgdir install
+  sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+    -i $pkgdir/usr/include/curses.h
+  for lib in ncurses form panel menu; do
+    ln -sfv lib${lib}w.so $pkgdir/usr/lib/lib${lib}.so
+    ln -sfv ${lib}w.pc $pkgdir/usr/lib/pkgconfig/${lib}.pc
+  done
+  ln -sfv libncursesw.so $pkgdir/usr/lib/libcurses.so
+  mkdir -p $pkgdir/usr/share/doc/
+  cp -v -R doc -T $pkgdir/usr/share/doc/ncurses-$pkgver
+}

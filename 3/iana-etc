@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pkgname="iana-etc"
+pkgver="20250123"
+
+sources=(
+  "https://github.com/Mic92/iana-etc/releases/download/$pkgver/iana-etc-$pkgver.tar.gz"
+)
+
+makedepends=()
+
+function build() {
+  cd iana-etc-$pkgver
+  mkdir -p $pkgdir/etc
+  cp services protocols $pkgdir/etc
+}

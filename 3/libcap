@@ -1,0 +1,30 @@
+#!/bin/bash
+
+pkgname="libcap"
+pkgver="2.73"
+
+sources=(
+  "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  diffutils
+)
+
+function build() {
+  cd libcap-$pkgver
+  sed -i '/install -m.*STA/d' libcap/Makefile
+  make prefix=/usr lib=lib
+  make prefix=/usr lib=lib DESTDIR=$pkgdir install
+}

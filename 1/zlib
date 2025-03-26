@@ -1,0 +1,21 @@
+#!/bin/bash
+
+pkgname="zlib"
+pkgver="1.3.1"
+
+sources=(
+  "https://zlib.net/fossils/zlib-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  cd zlib-$pkgver
+  CROSS_PREFIX=x86_64-dalix-linux-gnu- ./configure --prefix=/usr
+  make
+  make DESTDIR=$pkgdir install
+}

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+pkgname="lz4"
+pkgver="1.10.0"
+
+sources=(
+  "https://github.com/lz4/lz4/releases/download/v$pkgver/lz4-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd lz4-$pkgver
+  make BUILD_STATIC=no PREFIX=/usr
+  make BUILD_STATIC=no PREFIX=/usr DESTDIR=$pkgdir install
+}
