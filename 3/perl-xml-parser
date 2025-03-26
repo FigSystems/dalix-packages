@@ -1,0 +1,31 @@
+#!/bin/bash
+
+pkgname="perl-xml-parser"
+pkgver="2.47"
+
+sources=(
+  "https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  perl
+  expat
+)
+
+function build() {
+  cd XML-Parser-$pkgver
+  perl Makefile.PL
+  make
+  make DESTDIR=$pkgdir install
+}
