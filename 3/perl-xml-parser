@@ -9,6 +9,7 @@ sources=(
 
 depends=(
   glibc
+  expat
 )
 
 makedepends=(
@@ -25,7 +26,7 @@ makedepends=(
 
 function build() {
   cd XML-Parser-$pkgver
-  perl Makefile.PL
+  perl Makefile.PL INSTALLDIRS=vendor
   make
   make DESTDIR=$pkgdir install
 }
