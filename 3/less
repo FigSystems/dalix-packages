@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pkgname="less"
+pkgver="668"
+
+sources=(
+  "https://www.greenwoodsoftware.com/less/less-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd less-$pkgver
+  ./configure --prefix=/usr --sysconfdir=/etc
+  make
+  make DESTDIR=$pkgdir install
+}
