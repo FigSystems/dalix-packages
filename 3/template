@@ -1,0 +1,24 @@
+#!/bin/bash
+
+pkgname=""
+pkgver=""
+
+sources=(
+  ""
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build()

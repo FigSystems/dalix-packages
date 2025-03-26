@@ -1,0 +1,31 @@
+#!/bin/bash
+
+pkgname="gettext"
+pkgver="0.24"
+
+sources=(
+  "https://ftp.gnu.org/gnu/gettext/gettext-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  sed
+  grep
+  make
+  gawk
+  gcc
+  findutils
+  gzip
+)
+
+function build() {
+  cd gettext-$pkgver
+  am_cv_func_iconv_works="yes" ./configure --disable-shared
+  make
+  mkdir -p $pkgdir/usr/bin
+  cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} $pkgdir/usr/bin
+}

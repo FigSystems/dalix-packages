@@ -1,0 +1,41 @@
+#!/bin/bash
+
+pkgname="glibc"
+pkgver="2.41"
+kernel_ver="6.13.6"
+
+sources=(
+  "https://ftp.gnu.org/gnu/glibc/glibc-$pkgver.tar.xz"
+  "https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch"
+  "https://cdn.kernel.org/pub/linux/kernel/v$(echo -n "$kernel_ver" | grep -E -o "^[0-9]+").x/linux-$kernel_ver.tar.xz"
+)
+
+depends=(
+  linux-api-headers
+)
+
+USE_HOST_TOOLS=1
+
+function build() {
+  mkdir -p headers/usr
+  cd linux-$kernel_ver
+  make mrproper
+  make headers
+  find usr/include -type f ! -name '*.h' -delete
+  cp -rv usr/include ../headers/usr
+  cd ..
+  cd glibc-$pkgver
+  patch -Np1 -i ../glibc-2.41-fhs-1.patch
+  mkdir build && cd build
+  ../configure \
+    --prefix=/usr \
+    --host=x86_64-dalix-linux-gnu \
+    --build=$(../scripts/config.guess) \
+    --enable-kernel=5.4 \
+    --with-headers=$(readlink -f "$PWD/../../headers/usr/include") \
+    --disable-nscd \
+    libc_cv_slibdir=/usr/lib
+  make
+  make DESTDIR=$pkgdir install
+  sed '/RTLDLIST=/s@/usr@@g' -i $pkgdir/usr/bin/ldd
+}

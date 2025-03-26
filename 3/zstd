@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pkgname="zstd"
+pkgver="1.5.7"
+
+sources=(
+  "https://github.com/facebook/zstd/releases/download/v$pkgver/zstd-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd zstd-$pkgver
+  make prefix=/usr
+  make prefix=/usr DESTDIR=$pkgdir install
+  rm -v $pkgdir/usr/lib/libzstd.a
+}

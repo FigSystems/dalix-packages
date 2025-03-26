@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pkgname="psmisc"
+pkgver="23.7"
+
+sources=(
+  "https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd psmisc-$pkgver
+  ./configure --prefix=/usr
+  make
+  make DESTDIR=$pkgdir install
+}

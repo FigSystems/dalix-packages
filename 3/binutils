@@ -1,0 +1,45 @@
+#!/bin/bash
+
+pkgname="binutils"
+pkgver="2.43"
+
+sources=(
+  "https://sourceware.org/pub/binutils/releases/binutils-$pkgver.tar.xz"
+)
+
+depends=(
+  zlib
+  glibc
+)
+
+makedepends=(
+  glibc
+  zlib
+  gcc
+  binutils
+  sed
+  gawk
+  grep
+  make
+  file
+  diffutils
+  texinfo
+)
+
+function build() {
+  cd binutils-$pkgver
+  mkdir -v build
+  cd build
+  ../configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-ld=default \
+    --enable-plugins \
+    --enable-shared \
+    --disable-werror \
+    --enable-64-bit-bfd \
+    --enable-new-dtags \
+    --with-system-zlib \
+    --enable-default-hash-style=gnu
+  make tooldir=/usr
+  make tooldir=/usr DESTDIR=$pkgdir install
+}

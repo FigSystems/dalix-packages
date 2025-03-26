@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pkgname="acl"
+pkgver="2.3.2"
+
+sources=(
+  "https://download.savannah.gnu.org/releases/acl/acl-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+  attr
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  attr
+)
+
+function build() {
+  cd acl-$pkgver
+  ./configure --prefix=/usr \
+    --disable-static \
+    --docdir=/usr/share/doc/acl-$pkgver
+  make
+  make DESTDIR=$pkgdir install
+}
