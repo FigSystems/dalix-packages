@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pkgname="intltool"
+pkgver="0.51.0"
+
+sources=(
+  "https://launchpad.net/intltool/trunk/$pkgver/+download/intltool-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  perl-xml-parser
+  perl
+)
+
+function build() {
+  cd intltool-$pkgver
+  sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+  ./configure --prefix=/usr
+  make
+  make DESTDIR=$pkgdir install
+  install -v -Dm644 doc/I18N-HOWTO $pkgdir/usr/share/doc/intltool-$pkgver/I18N-HOWTO
+}
