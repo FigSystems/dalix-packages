@@ -1,0 +1,39 @@
+#!/bin/bash
+
+pkgname="inetutils"
+pkgver="2.6"
+
+sources=(
+  "https://ftp.gnu.org/gnu/inetutils/inetutils-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd inetutils-$pkgver
+  sed -i 's/def HAVE_TERMCAP_TGETENT/ 1/' telnet/telnet.c
+  ./configure --prefix=/usr \
+    --bindir=/usr/bin \
+    --localstatedir=/var \
+    --disable-logger \
+    --disable-whois \
+    --disable-rcp \
+    --disable-rexec \
+    --disable-rlogin \
+    --disable-rsh \
+    --disable-servers
+  make
+  make DESTDIR=$pkgdir install
+}
