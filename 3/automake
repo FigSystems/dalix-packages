@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pkgname="automake"
+pkgver="1.17"
+
+sources=(
+  "https://ftp.gnu.org/gnu/automake/automake-$pkgver.tar.xz"
+)
+
+depends=(
+  glibc
+  perl
+  autoconf
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+  perl
+  autoconf
+)
+
+function build() {
+  cd automake-$pkgver
+  ./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.17
+  make
+  make DESTDIR=$pkgdir
+}
