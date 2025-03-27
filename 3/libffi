@@ -1,0 +1,31 @@
+#!/bin/bash
+
+pkgname="libffi"
+pkgver="3.4.7"
+
+sources=(
+  "https://github.com/libffi/libffi/releases/download/v$pkgver/libffi-$pkgver.tar.gz"
+)
+
+depends=(
+  glibc
+)
+
+makedepends=(
+  glibc
+  gcc
+  binutils
+  make
+  sed
+  gawk
+  grep
+)
+
+function build() {
+  cd libffi-$pkgver
+  ./configure --prefix=/usr \
+    --disable-static \
+    --with-gcc-arch=native
+  make
+  make DESTDIR=$pkgdir install
+}
