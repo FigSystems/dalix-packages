@@ -37,6 +37,7 @@ function build() {
     --enable-optimizations
   make
   make DESTDIR=$pkgdir install
+  ln -sfT python3 $pkgdir/usr/bin/python
   install -v -dm755 ${pkgdir}/usr/share/doc/python-${pkgver}/html
 
   tar --strip-components=1 \
