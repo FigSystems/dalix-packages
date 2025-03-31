@@ -10,6 +10,8 @@ sources=(
 
 depends=(
   glibc
+  expat
+  openssl
 )
 
 makedepends=(
@@ -24,6 +26,7 @@ makedepends=(
   expat
   tar
   bzip2
+  openssl
 )
 
 function build() {
