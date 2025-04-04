@@ -21,11 +21,6 @@ depends=(
 USE_HOST_TOOLS=1
 
 function build() {
-  lah="/dpt/store/$(echo -n /dpt/store/* | grep -E -o 'linux-api-headers-[0-9]+\.[0-9]+\.[0-9]+')"
-  glibc="/dpt/store/$(echo -n /dpt/store/* | grep -E -o 'glibc-[0-9]+\.[0-9]+')"
-  mkdir -p sysroot
-  cp -v -a -r $lah/* sysroot/
-  cp -v -a -r $glibc/* sysroot/
   cd gcc-$pkgver
   mv -v ../mpfr-$mpfrver mpfr
   mv -v ../mpc-$mpcver mpc
@@ -47,7 +42,7 @@ function build() {
     --target=x86_64-dalix-linux-gnu \
     LDFLAGS_FOR_TARGET=-L$PWD/x86_64-dalix-linux-gnu/libgcc \
     --prefix=/usr \
-    --with-build-sysroot=$PWD/../../sysroot \
+    --with-build-sysroot=$HOME/Opt/Cross/ \
     --enable-default-pie \
     --enable-default-ssp \
     --disable-nls \
