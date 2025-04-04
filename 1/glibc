@@ -22,7 +22,7 @@ function build() {
   make mrproper
   make headers
   find usr/include -type f ! -name '*.h' -delete
-  cp -rv usr/include ../headers/usr
+  cp -rax usr/include ../headers/usr
   cd ..
   cd glibc-$pkgver
   patch -Np1 -i ../glibc-2.41-fhs-1.patch
