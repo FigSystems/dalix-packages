@@ -34,7 +34,9 @@ function build() {
     -D sitelib=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
     -D sitearch=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
     -D vendorlib=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
-    -D vendorarch=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl
+    -D vendorarch=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
+    -D man1dir=/usr/share/man/man1 \
+    -D man3dir=/usr/share/man/man3 \
   make
   make DESTDIR=$pkgdir install
 }
