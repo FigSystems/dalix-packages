@@ -25,6 +25,8 @@ makedepends=(
   python
   m4
   gzip
+  texinfo
+  gettext
 )
 
 function build() {
