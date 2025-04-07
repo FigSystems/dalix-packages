@@ -21,6 +21,9 @@ makedepends=(
   grep
   m4
   texinfo
+  diffutils
+  flex
+  bison
 )
 
 function build() {
