@@ -21,6 +21,7 @@ makedepends=(
   gawk
   grep
   attr
+  diffutils
 )
 
 function build() {
