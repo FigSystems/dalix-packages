@@ -21,6 +21,7 @@ makedepends=(
   grep
   file
   diffutils
+  gzip
 )
 
 function build() {
