@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+ver="2.41"
+TGT="$(uname -m)-dalix-linux-gnu"
+
+rm -rf glibc-$ver
+[ -f glibc-$ver.tar.xz ] || wget -q --show-progress https://ftp.gnu.org/gnu/glibc/glibc-$ver.tar.xz
+[ -f "glibc-2.41-fhs-1.patch" ] || wget -q --show-progress https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch
+tar -xf glibc-$ver.tar.xz
+cd glibc-$ver
+patch -Np1 -i ../glibc-2.41-fhs-1.patch
+mkdir build
+cd build
+echo "rootsbindir=/usr/sbin" >configparms
+../configure \
+  --prefix=/usr \
+  --host=$TGT \
+  --build=$(../scripts/config.guess) \
+  --enable-kernel=5.4 \
+  --with-headers=$HOME/Opt/Cross/usr/include \
+  --disable-nscd \
+  libc_cv_slibdir=/usr/lib
+make
+make DESTDIR=$HOME/Opt/Cross/ install
+
+rm -rf ../../glibc-staged
+mkdir -p ../../glibc-staged
+make DESTDIR=$PWD/../../glibc-staged install
+sed '/RTLDLIST=/s@/usr@@g' -i $HOME/Opt/Cross/usr/bin/ldd
+sed '/RTLDLIST=/s@/usr@@g' -i $PWD/../../glibc-staged/usr/bin/ldd
+mkdir -p $PWD/../../glibc-staged/dpt
+cat <<EOF >"$PWD/../../glibc-staged/dpt/pkg.kdl"
+name glibc
+version "$ver"
+
+depends "linux-api-headers"
+EOF
+cd ../..
+dpt gen-pkg glibc-staged
+mv glibc-staged.dpt glibc-$ver.dpt
