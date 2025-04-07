@@ -26,6 +26,7 @@ makedepends=(
   perl
   findutils
   diffutils
+  file
 )
 
 function build() {
