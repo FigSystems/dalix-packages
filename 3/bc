@@ -9,6 +9,7 @@ sources=(
 
 depends=(
   glibc
+  readline
 )
 
 makedepends=(
@@ -20,6 +21,7 @@ makedepends=(
   gawk
   grep
   findutils
+  readline
 )
 
 function build() {
