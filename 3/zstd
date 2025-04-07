@@ -9,6 +9,8 @@ sources=(
 
 depends=(
   glibc
+  lz4
+  xz
 )
 
 makedepends=(
@@ -19,6 +21,8 @@ makedepends=(
   sed
   gawk
   grep
+  lz4
+  xz
 )
 
 function build() {
