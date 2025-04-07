@@ -10,6 +10,7 @@ sources=(
 depends=(
   zlib
   glibc
+  flex
 )
 
 makedepends=(
@@ -24,6 +25,11 @@ makedepends=(
   file
   diffutils
   texinfo
+  bison
+  m4
+  flex
+  expect
+  gettext
 )
 
 function build() {
