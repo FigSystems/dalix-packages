@@ -19,6 +19,12 @@ makedepends=(
   sed
   gawk
   grep
+  perl
+  pkgconf
+  findutils
+  gettext
+  texinfo
+  diffutils
 )
 
 function build() {
