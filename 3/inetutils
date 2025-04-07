@@ -9,6 +9,8 @@ sources=(
 
 depends=(
   glibc
+  libxcrypt
+  util-linux
 )
 
 makedepends=(
@@ -19,6 +21,9 @@ makedepends=(
   sed
   gawk
   grep
+  bison
+  libxcrypt
+  util-linux
 )
 
 function build() {
