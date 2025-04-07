@@ -19,6 +19,8 @@ makedepends=(
   sed
   gawk
   grep
+  diffutils
+  findutils
 )
 
 function build() {
