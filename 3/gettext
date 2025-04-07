@@ -9,6 +9,7 @@ sources=(
 
 depends=(
   glibc
+  acl
 )
 
 makedepends=(
@@ -21,6 +22,11 @@ makedepends=(
   grep
   gzip
   tar
+  diffutils
+  findutils
+  texinfo
+  acl
+  gettext
 )
 
 function build() {
