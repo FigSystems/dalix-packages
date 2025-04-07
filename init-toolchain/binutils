@@ -1,0 +1,22 @@
+#!/bin/bash
+
+ver="2.44"
+TGT="$(uname -m)-dalix-linux-gnu"
+
+[ -d binutils-$ver ] && rm -rf binutils-$ver
+[ -f binutils-$ver.tar.xz ] || wget -q --show-progress https://sourceware.org/pub/binutils/releases/binutils-${ver}.tar.xz
+tar -xf binutils-$ver.tar.xz
+cd binutils-$ver
+mkdir build
+cd build
+mkdir -p $HOME/Opt/Cross/tools
+../configure --prefix=$HOME/Opt/Cross/tools \
+  --with-sysroot=$HOME/Opt/Cross \
+  --target=$TGT \
+  --disable-nls \
+  --enable-gprofng=no \
+  --disable-werror \
+  --enable-new-dtags \
+  --enable-default-hash-style=gnu
+make
+make install

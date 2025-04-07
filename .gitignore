@@ -2,5 +2,10 @@
 /ct-ng/.build
 /ct-ng/.config.old
 /ct-ng/build.log
-/init-toolchain
+/init-toolchain/gcc-*
+/init-toolchain/binutils-*
+/init-toolchain/libstdc++-*
+/init-toolchain/glibc-*
+/init-toolchain/linux-*
+/init-toolchain/*.tar.*
 /repo.bak

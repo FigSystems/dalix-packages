@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+ver="14.2.0"
+TGT="$(uname -m)-dalix-linux-gnu"
+
+[ -d gcc-$ver ] && { rm -rf gcc-$ver; }
+[ -f "gcc-$ver.tar.xz" ] || { wget -q --show-progress https://ftp.gnu.org/gnu/gcc/gcc-$ver/gcc-${ver}.tar.xz; }
+tar -xf gcc-$ver.tar.xz
+cd gcc-$ver
+
+mkdir build
+cd build
+../libstdc++-v3/configure \
+  --host=$TGT \
+  --build=$(../config.guess) \
+  --prefix=/usr \
+  --disable-multilib \
+  --disable-nls \
+  --disable-libstdcxx-pch \
+  --with-gxx-include-dir=/tools/$TGT/include/c++/$ver
+make
+make DESTDIR=$HOME/Opt/Cross install
+mv $HOME/Opt/Cross/usr/{lib64/*,lib}
+rm -rf $HOME/Opt/Cross/usr/lib64
+rm -v $HOME/Opt/Cross/usr/lib/lib{stdc++{,exp,fs},supc++}.la
+
+rm -rf ../../libstdc++-staged
+mkdir -p ../../libstdc++-staged
+make DESTDIR=$PWD/../../libstdc++-staged install
+mv $PWD/../../libstdc++-staged/usr/{lib64/*,lib}
+rm -rf $PWD/../../libstdc++-staged/usr/lib64
+rm -v $PWD/../../libstdc++-staged/usr/lib/lib{stdc++{,exp,fs},supc++}.la
+mkdir -p $PWD/../../libstdc++-staged/dpt
+cat <<EOF >"$PWD/../../libstdc++-staged/dpt/pkg.kdl"
+name "libstdc++"
+version "$ver"
+EOF
+cd ../..
+dpt gen-pkg libstdc++-staged
+mv libstdc++-staged.dpt libstdc++-$ver.dpt
