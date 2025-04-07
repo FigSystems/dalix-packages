@@ -4,7 +4,7 @@ pkgname="expat"
 pkgver="2.6.4"
 
 sources=(
-  "https://prdownloads.sourceforge.net/expat/expat-$pkgver.tar.xz"
+    "https://github.com/libexpat/libexpat/releases/download/R_$(echo -n "$pkgver" | tr '.' '_')/expat-$pkgver.tar.xz"
 )
 
 depends=(
