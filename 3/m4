@@ -20,6 +20,7 @@ makedepends=(
   gawk
   grep
   diffutils
+  gettext
 )
 
 function build() {
