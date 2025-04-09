@@ -4,33 +4,33 @@ pkgname="grep"
 pkgver="3.11"
 
 sources=(
-  "https://ftp.gnu.org/gnu/grep/grep-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/grep/grep-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  perl
-  pkgconf
-  findutils
-  gettext
-  texinfo
-  diffutils
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	perl
+	pkgconf
+	findutils
+	gettext
+	texinfo
+	diffutils
 )
 
 function build() {
-  cd grep-$pkgver
-  sed -i "s/echo/#echo/" src/egrep.sh
-  ./configure --prefix=/usr
-  make
-  make DESTDIR=$pkgdir install
+	cd grep-$pkgver
+	sed -i "s/echo/#echo/" src/egrep.sh
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
 }

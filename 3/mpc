@@ -4,37 +4,37 @@ pkgname="mpc"
 pkgver="1.3.1"
 
 sources=(
-  "https://ftp.gnu.org/gnu/mpc/mpc-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/mpc/mpc-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
-  gmp
-  mpfr
+	glibc
+	gmp
+	mpfr
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  gmp
-  diffutils
-  mpfr
-  texinfo
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	gmp
+	diffutils
+	mpfr
+	texinfo
 )
 
 function build() {
-  cd mpc-$pkgver
-  ./configure --prefix=/usr \
-    --disable-static \
-    --docdir=/usr/share/doc/mpc-$pkgver
-  make
-  make html
-  make check
-  make DESTDIR=$pkgdir install
-  make DESTDIR=$pkgdir install-html
+	cd mpc-$pkgver
+	./configure --prefix=/usr \
+		--disable-static \
+		--docdir=/usr/share/doc/mpc-$pkgver
+	make
+	make html
+	make check
+	make DESTDIR=$pkgdir install
+	make DESTDIR=$pkgdir install-html
 }

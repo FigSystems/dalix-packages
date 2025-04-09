@@ -4,60 +4,60 @@ pkgname="tcl"
 pkgver="8.6.16"
 
 sources=(
-  "https://downloads.sourceforge.net/tcl/tcl$pkgver-src.tar.gz"
-  "https://downloads.sourceforge.net/tcl/tcl$pkgver-html.tar.gz"
+	"https://downloads.sourceforge.net/tcl/tcl$pkgver-src.tar.gz"
+	"https://downloads.sourceforge.net/tcl/tcl$pkgver-html.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  tar
-  gzip
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	tar
+	gzip
 )
 
 function build() {
-  first_two="$(echo -n "$pkgver" | grep -E -o '^[0-9]+\.[0-9]+')"
-  cd tcl$pkgver
-  SRCDIR=$(pwd)
-  cd unix
-  ./configure --prefix=/usr \
-    --mandir=/usr/share/man \
-    --disable-rpath
-  make
+	first_two="$(echo -n "$pkgver" | grep -E -o '^[0-9]+\.[0-9]+')"
+	cd tcl$pkgver
+	SRCDIR=$(pwd)
+	cd unix
+	./configure --prefix=/usr \
+		--mandir=/usr/share/man \
+		--disable-rpath
+	make
 
-  sed -e "s|$SRCDIR/unix|/usr/lib|" \
-    -e "s|$SRCDIR|/usr/include|" \
-    -i tclConfig.sh
+	sed -e "s|$SRCDIR/unix|/usr/lib|" \
+		-e "s|$SRCDIR|/usr/include|" \
+		-i tclConfig.sh
 
-  tdbcver="1.1.10"
-  sed -e "s|$SRCDIR/unix/pkgs/tdbc${tdbcver}|/usr/lib/tdbc${tdbcver}|" \
-    -e "s|$SRCDIR/pkgs/tdbc${tdbcver}/generic|/usr/include|" \
-    -e "s|$SRCDIR/pkgs/tdbc${tdbcver}/library|/usr/lib/tcl${first_two}|" \
-    -e "s|$SRCDIR/pkgs/tdbc${tdbcver}|/usr/include|" \
-    -i pkgs/tdbc${tdbcver}/tdbcConfig.sh
+	tdbcver="1.1.10"
+	sed -e "s|$SRCDIR/unix/pkgs/tdbc${tdbcver}|/usr/lib/tdbc${tdbcver}|" \
+		-e "s|$SRCDIR/pkgs/tdbc${tdbcver}/generic|/usr/include|" \
+		-e "s|$SRCDIR/pkgs/tdbc${tdbcver}/library|/usr/lib/tcl${first_two}|" \
+		-e "s|$SRCDIR/pkgs/tdbc${tdbcver}|/usr/include|" \
+		-i pkgs/tdbc${tdbcver}/tdbcConfig.sh
 
-  itclver="4.3.2"
-  sed -e "s|$SRCDIR/unix/pkgs/itcl${itclver}|/usr/lib/itcl${itclver}|" \
-    -e "s|$SRCDIR/pkgs/itcl${itclver}/generic|/usr/include|" \
-    -e "s|$SRCDIR/pkgs/itcl${itclver}|/usr/include|" \
-    -i pkgs/itcl${itclver}/itclConfig.sh
+	itclver="4.3.2"
+	sed -e "s|$SRCDIR/unix/pkgs/itcl${itclver}|/usr/lib/itcl${itclver}|" \
+		-e "s|$SRCDIR/pkgs/itcl${itclver}/generic|/usr/include|" \
+		-e "s|$SRCDIR/pkgs/itcl${itclver}|/usr/include|" \
+		-i pkgs/itcl${itclver}/itclConfig.sh
 
-  unset SRCDIR
-  make DESTDIR=$pkgdir install
-  make DESTDIR=$pkgdir install-private-headers
-  ln -sfv tclsh8.6 $pkgdir/usr/bin/tclsh
-  mv $pkgdir/usr/share/man/man3/{Thread,Tcl_Thread}.3
-  cd ..
-  tar -xf ../tcl$pkgver-html.tar.gz --strip-components=1
-  mkdir -v -p $pkgdir/usr/share/doc/tcl-$pkgver
-  cp -v -r ./html/* $pkgdir/usr/share/doc/tcl-$pkgver
+	unset SRCDIR
+	make DESTDIR=$pkgdir install
+	make DESTDIR=$pkgdir install-private-headers
+	ln -sfv tclsh8.6 $pkgdir/usr/bin/tclsh
+	mv $pkgdir/usr/share/man/man3/{Thread,Tcl_Thread}.3
+	cd ..
+	tar -xf ../tcl$pkgver-html.tar.gz --strip-components=1
+	mkdir -v -p $pkgdir/usr/share/doc/tcl-$pkgver
+	cp -v -r ./html/* $pkgdir/usr/share/doc/tcl-$pkgver
 }

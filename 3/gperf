@@ -4,26 +4,26 @@ pkgname="gperf"
 pkgver="3.1"
 
 sources=(
-  "https://ftp.gnu.org/gnu/gperf/gperf-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/gperf/gperf-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
 )
 
 function build() {
-  cd gperf-$pkgver
-  ./configure --prefix=/usr --docdir=/usr/share/doc/gperf-$pkgver
-  make
-  make DESTDIR=$pkgdir install
+	cd gperf-$pkgver
+	./configure --prefix=/usr --docdir=/usr/share/doc/gperf-$pkgver
+	make
+	make DESTDIR=$pkgdir install
 }

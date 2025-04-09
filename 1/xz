@@ -4,23 +4,23 @@ pkgname="xz"
 pkgver="5.6.4"
 
 sources=(
-  "https://github.com//tukaani-project/xz/releases/download/v$pkgver/xz-$pkgver.tar.xz"
+	"https://github.com//tukaani-project/xz/releases/download/v$pkgver/xz-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 USE_HOST_TOOLS=1
 
 function build() {
-  cd xz-$pkgver
-  ./configure --prefix=/usr \
-    --host=x86_64-dalix-linux-gnu \
-    --build=$(build-aux/config.guess) \
-    --disable-static \
-    --docdir=/usr/share/doc/xz-$pkgver
-  make
-  make DESTDIR=$pkgdir install
-  rm -v $pkgdir/usr/lib/liblzma.la
+	cd xz-$pkgver
+	./configure --prefix=/usr \
+		--host=x86_64-dalix-linux-gnu \
+		--build=$(build-aux/config.guess) \
+		--disable-static \
+		--docdir=/usr/share/doc/xz-$pkgver
+	make
+	make DESTDIR=$pkgdir install
+	rm -v $pkgdir/usr/lib/liblzma.la
 }

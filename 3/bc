@@ -4,29 +4,29 @@ pkgname="bc"
 pkgver="7.0.3"
 
 sources=(
-  "https://github.com/gavinhoward/bc/releases/download/$pkgver/bc-$pkgver.tar.xz"
+	"https://github.com/gavinhoward/bc/releases/download/$pkgver/bc-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  readline
+	glibc
+	readline
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  findutils
-  readline
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	findutils
+	readline
 )
 
 function build() {
-  cd bc-$pkgver
-  CC=gcc ./configure --prefix=/usr -G -O3 -r
-  make
-  make DESTDIR=$pkgdir install
+	cd bc-$pkgver
+	CC=gcc ./configure --prefix=/usr -G -O3 -r
+	make
+	make DESTDIR=$pkgdir install
 }

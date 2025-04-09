@@ -4,31 +4,31 @@ pkgname="libelf"
 pkgver="0.192"
 
 sources=(
-  "https://sourceware.org/ftp/elfutils/$pkgver/elfutils-$pkgver.tar.bz2"
+	"https://sourceware.org/ftp/elfutils/$pkgver/elfutils-$pkgver.tar.bz2"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  m4
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	m4
 )
 
 function build() {
-  cd elfutils-$pkgver
-  ./configure --prefix=/usr \
-    --disable-debuginfod \
-    --enable-libdebuginfod=dummy
-  make
-  make -C libelf DESTDIR=$pkgdir install
-  install -vm644 config/libelf.pc $pkgdir/usr/lib/pkgconfig
-  rm $pkgdir/usr/lib/libelf.a
+	cd elfutils-$pkgver
+	./configure --prefix=/usr \
+		--disable-debuginfod \
+		--enable-libdebuginfod=dummy
+	make
+	make -C libelf DESTDIR=$pkgdir install
+	install -vm644 config/libelf.pc $pkgdir/usr/lib/pkgconfig
+	rm $pkgdir/usr/lib/libelf.a
 }

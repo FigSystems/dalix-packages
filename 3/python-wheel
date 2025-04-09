@@ -4,29 +4,29 @@ pkgname="python-wheel"
 pkgver="0.45.1"
 
 sources=(
-  "https://pypi.org/packages/source/w/wheel/wheel-$pkgver.tar.gz"
+	"https://pypi.org/packages/source/w/wheel/wheel-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
-  python
-  python-flit-core
+	glibc
+	python
+	python-flit-core
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  python
-  python-flit-core
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	python
+	python-flit-core
 )
 
 function build() {
-  cd wheel-$pkgver
-  pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
-  pip3 install --root "$pkgdir" --no-index --find-links dist wheel
+	cd wheel-$pkgver
+	pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
+	pip3 install --root "$pkgdir" --no-index --find-links dist wheel
 }

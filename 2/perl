@@ -4,39 +4,39 @@ pkgname="perl"
 pkgver="5.40.1"
 
 sources=(
-  "https://www.cpan.org/src/$(echo -n "$pkgver" | grep -E -o '^[0-9]+').0/perl-$pkgver.tar.xz"
+	"https://www.cpan.org/src/$(echo -n "$pkgver" | grep -E -o '^[0-9]+').0/perl-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  grep
-  sed
-  gawk
+	glibc
+	gcc
+	binutils
+	make
+	grep
+	sed
+	gawk
 )
 
 function build() {
-  cd perl-$pkgver
-  first_ver="$(echo -n "$pkgver" | grep -E -o '^[0-9]+')"
-  first_two_ver="$(echo -n "$pkgver" | grep -E -o '^[0-9]+\.[0-9]+')"
-  sh Configure -des \
-    -D prefix=/usr \
-    -D vendorprefix=/usr \
-    -D useshrplib \
-    -D privlib=/usr/lib/perl${first_ver}/${first_two_ver}/core_perl \
-    -D archlib=/usr/lib/perl${first_ver}/${first_two_ver}/core_perl \
-    -D sitelib=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
-    -D sitearch=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
-    -D vendorlib=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
-    -D vendorarch=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
-    -D man1dir=/usr/share/man/man1 \
-    -D man3dir=/usr/share/man/man3 \
-  make
-  make DESTDIR=$pkgdir install
+	cd perl-$pkgver
+	first_ver="$(echo -n "$pkgver" | grep -E -o '^[0-9]+')"
+	first_two_ver="$(echo -n "$pkgver" | grep -E -o '^[0-9]+\.[0-9]+')"
+	sh Configure -des \
+		-D prefix=/usr \
+		-D vendorprefix=/usr \
+		-D useshrplib \
+		-D privlib=/usr/lib/perl${first_ver}/${first_two_ver}/core_perl \
+		-D archlib=/usr/lib/perl${first_ver}/${first_two_ver}/core_perl \
+		-D sitelib=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
+		-D sitearch=/usr/lib/perl${first_ver}/${first_two_ver}/site_perl \
+		-D vendorlib=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
+		-D vendorarch=/usr/lib/perl${first_ver}/${first_two_ver}/vendor_perl \
+		-D man1dir=/usr/share/man/man1 \
+		-D man3dir=/usr/share/man/man3 \
+		make
+	make DESTDIR=$pkgdir install
 }

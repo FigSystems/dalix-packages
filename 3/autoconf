@@ -4,30 +4,30 @@ pkgname="autoconf"
 pkgver="2.72"
 
 sources=(
-  "https://ftp.gnu.org/gnu/autoconf/autoconf-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/autoconf/autoconf-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  perl
-  m4
+	glibc
+	perl
+	m4
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  m4
-  perl
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	m4
+	perl
 )
 
 function build() {
-  cd autoconf-$pkgver
-  ./configure --prefix=/usr
-  make
-  make DESTDIR=$pkgdir install
+	cd autoconf-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
 }

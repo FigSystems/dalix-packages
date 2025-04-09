@@ -4,34 +4,34 @@ pkgname="texinfo"
 pkgver="7.2"
 
 sources=(
-  "https://ftp.gnu.org/gnu/texinfo/texinfo-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/texinfo/texinfo-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  ncurses
-  gzip
-  perl
-  bash
+	glibc
+	ncurses
+	gzip
+	perl
+	bash
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  grep
-  sed
-  gawk
-  perl
-  findutils
-  diffutils
-  file
+	glibc
+	gcc
+	binutils
+	make
+	grep
+	sed
+	gawk
+	perl
+	findutils
+	diffutils
+	file
 )
 
 function build() {
-  cd texinfo-$pkgver
-  ./configure --prefix=/usr
-  make
-  make DESTDIR=$pkgdir install
+	cd texinfo-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
 }

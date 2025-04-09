@@ -4,29 +4,29 @@ pkgname="attr"
 pkgver="2.5.2"
 
 sources=(
-  "https://download.savannah.gnu.org/releases/attr/attr-$pkgver.tar.gz"
+	"https://download.savannah.gnu.org/releases/attr/attr-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
 )
 
 function build() {
-  cd attr-$pkgver
-  ./configure --prefix=/usr \
-    --disable-static \
-    --sysconfdir=/etc \
-    --docdir=/usr/share/doc/attr-$pkgver
-  make
-  make DESTDIR=$pkgdir install
+	cd attr-$pkgver
+	./configure --prefix=/usr \
+		--disable-static \
+		--sysconfdir=/etc \
+		--docdir=/usr/share/doc/attr-$pkgver
+	make
+	make DESTDIR=$pkgdir install
 }
