@@ -4,31 +4,31 @@ pkgname="gdbm"
 pkgver="1.24"
 
 sources=(
-  "https://ftp.gnu.org/gnu/gdbm/gdbm-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/gdbm/gdbm-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  file
-  diffutils
-  gzip
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	file
+	diffutils
+	gzip
 )
 
 function build() {
-  cd gdbm-$pkgver
-  ./configure --prefix=/usr \
-    --disable-static \
-    --enable-libgdbm-compat
-  make
-  make DESTDIR=$pkgdir install
+	cd gdbm-$pkgver
+	./configure --prefix=/usr \
+		--disable-static \
+		--enable-libgdbm-compat
+	make
+	make DESTDIR=$pkgdir install
 }

@@ -4,48 +4,48 @@ pkgname="glibc"
 pkgver="2.41"
 
 sources=(
-  "https://ftp.gnu.org/gnu/glibc/glibc-$pkgver.tar.xz"
-  "https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch"
+	"https://ftp.gnu.org/gnu/glibc/glibc-$pkgver.tar.xz"
+	"https://www.linuxfromscratch.org/patches/lfs/12.3/glibc-2.41-fhs-1.patch"
 )
 
 depends=(
-  "linux-api-headers"
+	"linux-api-headers"
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  patch
-  grep
-  sed
-  gawk
-  bison
-  python
-  m4
-  gzip
-  texinfo
-  gettext
+	glibc
+	gcc
+	binutils
+	make
+	patch
+	grep
+	sed
+	gawk
+	bison
+	python
+	m4
+	gzip
+	texinfo
+	gettext
 )
 
 function build() {
-  cd glibc-$pkgver
-  patch -Np1 -i ../glibc-2.41-fhs-1.patch
-  mkdir -v build
-  cd build
-  echo "rootsbindir=/usr/sbin" >configparms
-  ../configure --prefix=/usr \
-    --disable-werror \
-    --enable-kernel=5.4 \
-    --enable-stack-protector=strong \
-    --disable-nscd \
-    libc_cv_slibdir=/usr/lib
-  make
-  make DESTDIR=$pkgdir install
-  sed '/RTLDLIST=/s@/usr@@g' -i $pkgdir/usr/bin/ldd
-  make DESTDIR=$pkgdir localedata/install-locales
-  cat >$pkgdir/etc/nsswitch.conf <<"EOF"
+	cd glibc-$pkgver
+	patch -Np1 -i ../glibc-2.41-fhs-1.patch
+	mkdir -v build
+	cd build
+	echo "rootsbindir=/usr/sbin" >configparms
+	../configure --prefix=/usr \
+		--disable-werror \
+		--enable-kernel=5.4 \
+		--enable-stack-protector=strong \
+		--disable-nscd \
+		libc_cv_slibdir=/usr/lib
+	make
+	make DESTDIR=$pkgdir install
+	sed '/RTLDLIST=/s@/usr@@g' -i $pkgdir/usr/bin/ldd
+	make DESTDIR=$pkgdir localedata/install-locales
+	cat >$pkgdir/etc/nsswitch.conf <<"EOF"
 # Begin /etc/nsswitch.conf
 
 passwd: files

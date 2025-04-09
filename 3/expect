@@ -4,39 +4,39 @@ pkgname="expect"
 pkgver="5.45.4"
 
 sources=(
-  "https://prdownloads.sourceforge.net/expect/expect$pkgver.tar.gz"
-  "https://www.linuxfromscratch.org/patches/lfs/12.3/expect-5.45.4-gcc14-1.patch"
+	"https://prdownloads.sourceforge.net/expect/expect$pkgver.tar.gz"
+	"https://www.linuxfromscratch.org/patches/lfs/12.3/expect-5.45.4-gcc14-1.patch"
 )
 
 depends=(
-  glibc
-  tcl
-  zlib
+	glibc
+	tcl
+	zlib
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  patch
-  tcl
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	patch
+	tcl
 )
 
 function build() {
-  cd expect$pkgver
-  patch -Np1 -i ../expect-5.45.4-gcc14-1.patch
-  ./configure --prefix=/usr \
-    --with-tcl=/usr/lib \
-    --enable-shared \
-    --disable-rpath \
-    --mandir=/usr/share/man \
-    --with-tclinclude=/usr/include
-  make
-  make DESTDIR=$pkgdir install
-  mkdir -p $pkgdir/usr/lib
-  ln -svf expect5.45.4/libexpect5.45.4.so $pkgdir/usr/lib
+	cd expect$pkgver
+	patch -Np1 -i ../expect-5.45.4-gcc14-1.patch
+	./configure --prefix=/usr \
+		--with-tcl=/usr/lib \
+		--enable-shared \
+		--disable-rpath \
+		--mandir=/usr/share/man \
+		--with-tclinclude=/usr/include
+	make
+	make DESTDIR=$pkgdir install
+	mkdir -p $pkgdir/usr/lib
+	ln -svf expect5.45.4/libexpect5.45.4.so $pkgdir/usr/lib
 }

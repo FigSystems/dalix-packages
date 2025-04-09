@@ -4,38 +4,38 @@ pkgname="ncurses"
 pkgver="6.5"
 
 sources=(
-  "https://ftp.gnu.org/gnu/ncurses/ncurses-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/ncurses/ncurses-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 USE_HOST_TOOLS=1
 
 function build() {
-  cd ncurses-$pkgver
-  mkdir build
-  pushd build
-  ../configure AWK=gawk
-  make -C include
-  make -C progs tic
-  popd
-  ./configure --prefix=/usr \
-    --host=x86_64-dalix-linux-gnu \
-    --build=$(./config.guess) \
-    --mandir=/usr/share/man \
-    --with-manpage-format=normal \
-    --with-shared \
-    --without-normal \
-    --with-cxx-shared \
-    --without-debug \
-    --without-ada \
-    --disable-stripping \
-    AWK=gawk
-  make
-  make DESTDIR=$pkgdir TIC_PATH=$PWD/build/progs/tic install
-  ln -sv libncursesw.so $pkgdir/usr/lib/libncurses.so
-  sed -e 's/^#if.*XOPEN.*$/#if 1/' \
-    -i $pkgdir/usr/include/curses.h
+	cd ncurses-$pkgver
+	mkdir build
+	pushd build
+	../configure AWK=gawk
+	make -C include
+	make -C progs tic
+	popd
+	./configure --prefix=/usr \
+		--host=x86_64-dalix-linux-gnu \
+		--build=$(./config.guess) \
+		--mandir=/usr/share/man \
+		--with-manpage-format=normal \
+		--with-shared \
+		--without-normal \
+		--with-cxx-shared \
+		--without-debug \
+		--without-ada \
+		--disable-stripping \
+		AWK=gawk
+	make
+	make DESTDIR=$pkgdir TIC_PATH=$PWD/build/progs/tic install
+	ln -sv libncursesw.so $pkgdir/usr/lib/libncurses.so
+	sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+		-i $pkgdir/usr/include/curses.h
 }

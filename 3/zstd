@@ -4,30 +4,30 @@ pkgname="zstd"
 pkgver="1.5.7"
 
 sources=(
-  "https://github.com/facebook/zstd/releases/download/v$pkgver/zstd-$pkgver.tar.gz"
+	"https://github.com/facebook/zstd/releases/download/v$pkgver/zstd-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
-  lz4
-  xz
+	glibc
+	lz4
+	xz
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  lz4
-  xz
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	lz4
+	xz
 )
 
 function build() {
-  cd zstd-$pkgver
-  make prefix=/usr
-  make prefix=/usr DESTDIR=$pkgdir install
-  rm -v $pkgdir/usr/lib/libzstd.a
+	cd zstd-$pkgver
+	make prefix=/usr
+	make prefix=/usr DESTDIR=$pkgdir install
+	rm -v $pkgdir/usr/lib/libzstd.a
 }

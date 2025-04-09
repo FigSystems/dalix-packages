@@ -4,27 +4,27 @@ pkgname="file"
 pkgver="5.46"
 
 sources=(
-  "https://astron.com/pub/file/file-$pkgver.tar.gz"
+	"https://astron.com/pub/file/file-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 USE_HOST_TOOLS=1
 
 function build() {
-  cd file-$pkgver
-  mkdir build
-  pushd build
-  ../configure --disable-bzlib \
-    --disable-libseccomp \
-    --disable-xzlib \
-    --disable-zlib
-  make
-  popd
-  ./configure --prefix=/usr --host=x86_64-dalix-linux-gnu --build=$(./config.guess)
-  make FILE_COMPILE=$(pwd)/build/src/file
-  make DESTDIR=$pkgdir install
-  rm -v $pkgdir/usr/lib/libmagic.la
+	cd file-$pkgver
+	mkdir build
+	pushd build
+	../configure --disable-bzlib \
+		--disable-libseccomp \
+		--disable-xzlib \
+		--disable-zlib
+	make
+	popd
+	./configure --prefix=/usr --host=x86_64-dalix-linux-gnu --build=$(./config.guess)
+	make FILE_COMPILE=$(pwd)/build/src/file
+	make DESTDIR=$pkgdir install
+	rm -v $pkgdir/usr/lib/libmagic.la
 }

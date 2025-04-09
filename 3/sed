@@ -4,33 +4,33 @@ pkgname="sed"
 pkgver="4.9"
 
 sources=(
-  "https://ftp.gnu.org/gnu/sed/sed-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/sed/sed-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  acl
+	glibc
+	acl
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  diffutils
-  texinfo
-  acl
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	texinfo
+	acl
 )
 
 function build() {
-  cd sed-$pkgver
-  ./configure --prefix=/usr
-  make
-  make html
-  make DESTDIR=$pkgdir install
-  install -d -m755 $pkgdir/usr/share/doc/sed-$pkgver
-  install -m644 doc/sed.html $pkgdir/usr/share/doc/sed-$pkgver
+	cd sed-$pkgver
+	./configure --prefix=/usr
+	make
+	make html
+	make DESTDIR=$pkgdir install
+	install -d -m755 $pkgdir/usr/share/doc/sed-$pkgver
+	install -m644 doc/sed.html $pkgdir/usr/share/doc/sed-$pkgver
 }

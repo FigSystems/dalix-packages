@@ -4,38 +4,38 @@ pkgname="dejagnu"
 pkgver="1.6.3"
 
 sources=(
-  "https://ftp.gnu.org/gnu/dejagnu/dejagnu-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/dejagnu/dejagnu-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
-  expect
-  sed
-  gawk
-  bash
-  coreutils
+	glibc
+	expect
+	sed
+	gawk
+	bash
+	coreutils
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  texinfo
-  expect
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	texinfo
+	expect
 )
 
 function build() {
-  cd dejagnu-$pkgver
-  mkdir -v build
-  cd build
-  ../configure --prefix=/usr
-  makeinfo --html --no-split -o doc/dejagnu.html ../doc/dejagnu.texi
-  makeinfo --plaintext -o doc/dejagnu.txt ../doc/dejagnu.texi
-  make DESTDIR=$pkgdir install
-  install -v -dm755 $pkgdir/usr/share/doc/dejagnu-$pkgver
-  install -v -m644 doc/dejagnu.{html,txt} $pkgdir/usr/share/doc/dejagnu-$pkgver
+	cd dejagnu-$pkgver
+	mkdir -v build
+	cd build
+	../configure --prefix=/usr
+	makeinfo --html --no-split -o doc/dejagnu.html ../doc/dejagnu.texi
+	makeinfo --plaintext -o doc/dejagnu.txt ../doc/dejagnu.texi
+	make DESTDIR=$pkgdir install
+	install -v -dm755 $pkgdir/usr/share/doc/dejagnu-$pkgver
+	install -v -m644 doc/dejagnu.{html,txt} $pkgdir/usr/share/doc/dejagnu-$pkgver
 }

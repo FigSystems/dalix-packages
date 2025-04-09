@@ -4,37 +4,37 @@ pkgname="gmp"
 pkgver="6.3.0"
 
 sources=(
-  "https://ftp.gnu.org/gnu/gmp/gmp-${pkgver}.tar.xz"
+	"https://ftp.gnu.org/gnu/gmp/gmp-${pkgver}.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  m4
-  texinfo
-  diffutils
-  flex
-  bison
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	m4
+	texinfo
+	diffutils
+	flex
+	bison
 )
 
 function build() {
-  cd gmp-$pkgver
-  ./configure --prefix=/usr \
-    --enable-cxx \
-    --disable-static \
-    --docdir=/usr/share/doc/gmp-$pkgver
-  make
-  make html
-  make check
-  make DESTDIR=$pkgdir install
-  make DESTDIR=$pkgdir install-html
+	cd gmp-$pkgver
+	./configure --prefix=/usr \
+		--enable-cxx \
+		--disable-static \
+		--docdir=/usr/share/doc/gmp-$pkgver
+	make
+	make html
+	make check
+	make DESTDIR=$pkgdir install
+	make DESTDIR=$pkgdir install-html
 }

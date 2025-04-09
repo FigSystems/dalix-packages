@@ -4,26 +4,26 @@ pkgname="coreutils"
 pkgver="9.6"
 
 sources=(
-  "https://ftp.gnu.org/gnu/coreutils/coreutils-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/coreutils/coreutils-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 USE_HOST_TOOLS=1
 
 function build() {
-  cd coreutils-$pkgver
-  ./configure --prefix=/usr \
-    --host=x86_64-dalix-linux-gnu \
-    --build=$(build-aux/config.guess) \
-    --enable-install-program=hostname \
-    --enable-no-install-program=kill,uptime
+	cd coreutils-$pkgver
+	./configure --prefix=/usr \
+		--host=x86_64-dalix-linux-gnu \
+		--build=$(build-aux/config.guess) \
+		--enable-install-program=hostname \
+		--enable-no-install-program=kill,uptime
 
-  make
-  make DESTDIR=$pkgdir install
-  mkdir -pv $pkgdir/usr/share/man/man8
-  mv -v $pkgdir/usr/share/man/man1/chroot.1 $pkgdir/usr/share/man/man8/chroot.8
-  sed -i 's/"1"/"8"/' $pkgdir/usr/share/man/man8/chroot.8
+	make
+	make DESTDIR=$pkgdir install
+	mkdir -pv $pkgdir/usr/share/man/man8
+	mv -v $pkgdir/usr/share/man/man1/chroot.1 $pkgdir/usr/share/man/man8/chroot.8
+	sed -i 's/"1"/"8"/' $pkgdir/usr/share/man/man8/chroot.8
 }

@@ -4,26 +4,26 @@ pkgname="file"
 pkgver="5.46"
 
 sources=(
-  "https://astron.com/pub/file/file-$pkgver.tar.gz"
+	"https://astron.com/pub/file/file-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
 )
 
 function build() {
-  cd file-$pkgver
-  ./configure --prefix=/usr
-  make
-  make DESTDIR=$pkgdir install
+	cd file-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
 }

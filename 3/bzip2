@@ -4,41 +4,41 @@ pkgname="bzip2"
 pkgver="1.0.8"
 
 sources=(
-  "https://www.sourceware.org/pub/bzip2/bzip2-$pkgver.tar.gz"
-  "https://www.linuxfromscratch.org/patches/lfs/12.3/bzip2-1.0.8-install_docs-1.patch"
+	"https://www.sourceware.org/pub/bzip2/bzip2-$pkgver.tar.gz"
+	"https://www.linuxfromscratch.org/patches/lfs/12.3/bzip2-1.0.8-install_docs-1.patch"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  grep
-  gawk
-  patch
-  diffutils
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	grep
+	gawk
+	patch
+	diffutils
 )
 
 function build() {
-  cd bzip2-$pkgver
-  patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
-  sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
-  sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
-  make -f Makefile-libbz2_so
-  make clean
-  make
-  make PREFIX=$pkgdir/usr install
-  mkdir -p $pkgdir/usr/lib
-  cp -av libbz2.so.* $pkgdir/usr/lib
-  ln -sv libbz2.so.1.0.8 $pkgdir/usr/lib/libbz2.so
-  cp -v bzip2-shared $pkgdir/usr/bin/bzip2
-  for i in /usr/bin/{bzcat,bunzip2}; do
-    ln -sfv bzip2 $pkgdir/$i
-  done
-  rm -fv $pkgdir/usr/lib/libbz2.a
+	cd bzip2-$pkgver
+	patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+	sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+	sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+	make -f Makefile-libbz2_so
+	make clean
+	make
+	make PREFIX=$pkgdir/usr install
+	mkdir -p $pkgdir/usr/lib
+	cp -av libbz2.so.* $pkgdir/usr/lib
+	ln -sv libbz2.so.1.0.8 $pkgdir/usr/lib/libbz2.so
+	cp -v bzip2-shared $pkgdir/usr/bin/bzip2
+	for i in /usr/bin/{bzcat,bunzip2}; do
+		ln -sfv bzip2 $pkgdir/$i
+	done
+	rm -fv $pkgdir/usr/lib/libbz2.a
 }

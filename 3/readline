@@ -4,33 +4,33 @@ pkgname="readline"
 pkgver="8.2.13"
 
 sources=(
-  "https://ftp.gnu.org/gnu/readline/readline-$pkgver.tar.gz"
+	"https://ftp.gnu.org/gnu/readline/readline-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  ncurses
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	ncurses
 )
 
 function build() {
-  cd readline-$pkgver
-  sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
-  ./configure --prefix=/usr \
-    --disable-static \
-    --with-curses \
-    --docdir=/usr/share/doc/readline-$pkgver
-  make SHLIB_LIBS="-lncursesw"
-  make DESTDIR=$pkgdir install
-  mkdir -p $pkgdir/usr/share/doc/
-  install -v -m644 doc/*.{ps,pdf,html,dvi} $pkgdir/usr/share/doc/readline-$pkgver
+	cd readline-$pkgver
+	sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
+	./configure --prefix=/usr \
+		--disable-static \
+		--with-curses \
+		--docdir=/usr/share/doc/readline-$pkgver
+	make SHLIB_LIBS="-lncursesw"
+	make DESTDIR=$pkgdir install
+	mkdir -p $pkgdir/usr/share/doc/
+	install -v -m644 doc/*.{ps,pdf,html,dvi} $pkgdir/usr/share/doc/readline-$pkgver
 }

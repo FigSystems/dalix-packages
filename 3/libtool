@@ -4,31 +4,31 @@ pkgname="libtool"
 pkgver="2.5.4"
 
 sources=(
-  "https://ftp.gnu.org/gnu/libtool/libtool-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/libtool/libtool-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  findutils
+	glibc
+	findutils
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  m4
-  diffutils
-  findutils
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	m4
+	diffutils
+	findutils
 )
 
 function build() {
-  cd libtool-$pkgver
-  ./configure --prefix=/usr
-  make
-  make DESTDIR=$pkgdir install
-  rm -fv $pkgdir/usr/lib/libltdl.a
+	cd libtool-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+	rm -fv $pkgdir/usr/lib/libltdl.a
 }

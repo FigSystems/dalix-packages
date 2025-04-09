@@ -4,94 +4,94 @@ pkgname=("gcc" "gcc-libs")
 pkgver="14.2.0"
 
 sources=(
-  "https://ftp.gnu.org/gnu/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
+	"https://ftp.gnu.org/gnu/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  gmp
-  mpfr
-  mpc
-  file
-  diffutils
-  texinfo
-  tar
-  zlib
-  flex
-  perl
-  zstd
-  gettext
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	gmp
+	mpfr
+	mpc
+	file
+	diffutils
+	texinfo
+	tar
+	zlib
+	flex
+	perl
+	zstd
+	gettext
 )
 
 depends_gcc=(
-  glibc
-  gmp
-  mpfr
-  mpc
-  zlib
-  binutils
-  zstd
-  "gcc-libs==$pkgver"
+	glibc
+	gmp
+	mpfr
+	mpc
+	zlib
+	binutils
+	zstd
+	"gcc-libs==$pkgver"
 )
 
 function build_gcc() {
-  cd gcc-$pkgver
-  case $(uname -m) in
-  x86_64)
-    sed -e '/m64=/s/lib64/lib/' \
-      -i.orig gcc/config/i386/t-linux64
-    ;;
-  esac
-  mkdir build
-  cd build
-  gcc -dumpmachine
-  echo "=========="
-  gcc -v
-  ../configure --prefix=/usr \
-    LD=ld \
-    --enable-languages=c,c++ \
-    --enable-default-pie \
-    --enable-default-ssp \
-    --enable-host-pie \
-    --disable-multilib \
-    --disable-bootstrap \
-    --disable-fixincludes \
-    --with-system-zlib
-  make
-  make DESTDIR=$pkgdir install
-  rm -rf $pkgdir/usr/lib
-  mkdir -p $pkgdir/usr/{lib,bin}
-  ln -sv /usr/bin/cpp $pkgdir/usr/lib
-  mkdir -p $pkgdir/usr/share/man/man1
-  ln -sv gcc.1 $pkgdir/usr/share/man/man1/cc.1
-  ln -sv gcc $pkgdir/usr/bin/cc
-  mkdir -p $pkgdir/usr/lib/bfd-plugins
-  ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$pkgver/liblto_plugin.so \
-    $pkgdir/usr/lib/bfd-plugins/
+	cd gcc-$pkgver
+	case $(uname -m) in
+	x86_64)
+		sed -e '/m64=/s/lib64/lib/' \
+			-i.orig gcc/config/i386/t-linux64
+		;;
+	esac
+	mkdir build
+	cd build
+	gcc -dumpmachine
+	echo "=========="
+	gcc -v
+	../configure --prefix=/usr \
+		LD=ld \
+		--enable-languages=c,c++ \
+		--enable-default-pie \
+		--enable-default-ssp \
+		--enable-host-pie \
+		--disable-multilib \
+		--disable-bootstrap \
+		--disable-fixincludes \
+		--with-system-zlib
+	make
+	make DESTDIR=$pkgdir install
+	rm -rf $pkgdir/usr/lib
+	mkdir -p $pkgdir/usr/{lib,bin}
+	ln -sv /usr/bin/cpp $pkgdir/usr/lib
+	mkdir -p $pkgdir/usr/share/man/man1
+	ln -sv gcc.1 $pkgdir/usr/share/man/man1/cc.1
+	ln -sv gcc $pkgdir/usr/bin/cc
+	mkdir -p $pkgdir/usr/lib/bfd-plugins
+	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$pkgver/liblto_plugin.so \
+		$pkgdir/usr/lib/bfd-plugins/
 }
 
 depends_gcc_libs=(
-  glibc
-  gmp
-  mpfr
-  mpc
-  zlib
-  binutils
-  zstd
+	glibc
+	gmp
+	mpfr
+	mpc
+	zlib
+	binutils
+	zstd
 )
 function build_gcc-libs() {
-    cd gcc-$pkgver
-    cd build
-    make DESTDIR=$pkgdir install
-    mkdir -p "../gcc-lib-dir"
-    mv $pkgdir/usr/lib/* "../gcc-lib-dir"
-    rm -rf $pkgdir/*
-    mkdir -p $pkgdir/usr/lib
-    mv "../gcc-lib-dir"/* $pkgdir/usr/lib
+	cd gcc-$pkgver
+	cd build
+	make DESTDIR=$pkgdir install
+	mkdir -p "../gcc-lib-dir"
+	mv $pkgdir/usr/lib/* "../gcc-lib-dir"
+	rm -rf $pkgdir/*
+	mkdir -p $pkgdir/usr/lib
+	mv "../gcc-lib-dir"/* $pkgdir/usr/lib
 }

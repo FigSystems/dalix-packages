@@ -4,23 +4,23 @@ pkgname="man-pages"
 pkgver="6.12"
 
 sources=(
-  "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-$pkgver.tar.xz"
+	"https://www.kernel.org/pub/linux/docs/man-pages/man-pages-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  make
-  grep
-  findutils
-  sed
-  gcc
+	make
+	grep
+	findutils
+	sed
+	gcc
 )
 
 function build() {
-  cd man-pages-$pkgver
-  rm -v man3/crypt*
-  make -R GIT=false prefix=/usr DESTDIR=$pkgdir install
+	cd man-pages-$pkgver
+	rm -v man3/crypt*
+	make -R GIT=false prefix=/usr DESTDIR=$pkgdir install
 }

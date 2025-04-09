@@ -4,34 +4,34 @@ pkgname="openssl"
 pkgver="3.4.1"
 
 sources=(
-  "https://github.com/openssl/openssl/releases/download/openssl-$pkgver/openssl-$pkgver.tar.gz"
+	"https://github.com/openssl/openssl/releases/download/openssl-$pkgver/openssl-$pkgver.tar.gz"
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
-  perl
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	perl
 )
 
 function build() {
-  cd openssl-$pkgver
-  ./config --prefix=/usr \
-    --openssldir=/etc/ssl \
-    --libdir=lib \
-    shared \
-    zlib-dynamic
-  make
-  sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
-  make MANSUFFIX=ssl DESTDIR=$pkgdir install
-  mv $pkgdir/usr/share/doc/openssl{,-$pkgver}
-  cp -fr doc/* $pkgdir/usr/share/doc/openssl-$pkgver
+	cd openssl-$pkgver
+	./config --prefix=/usr \
+		--openssldir=/etc/ssl \
+		--libdir=lib \
+		shared \
+		zlib-dynamic
+	make
+	sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
+	make MANSUFFIX=ssl DESTDIR=$pkgdir install
+	mv $pkgdir/usr/share/doc/openssl{,-$pkgver}
+	cp -fr doc/* $pkgdir/usr/share/doc/openssl-$pkgver
 }

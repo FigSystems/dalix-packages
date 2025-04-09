@@ -4,33 +4,33 @@ pkgname="binutils"
 pkgver="2.43"
 
 sources=(
-  "https://sourceware.org/pub/binutils/releases/binutils-$pkgver.tar.xz"
+	"https://sourceware.org/pub/binutils/releases/binutils-$pkgver.tar.xz"
 )
 
 depends=(
-  glibc
-  zlib
+	glibc
+	zlib
 )
 
 USE_HOST_TOOLS=1
 
 function build() {
-  cd binutils-$pkgver
-  sed '6031s/$add_dir//' -i ltmain.sh
-  mkdir -v build
-  cd build
-  ../configure \
-    --prefix=/usr \
-    --build=$(../config.guess) \
-    --host=x86_64-dalix-linux-gnu \
-    --disable-nls \
-    --enable-shared \
-    --enable-gprofng=no \
-    --disable-werror \
-    --enable-64-bit-bfd \
-    --enable-new-dtags \
-    --enable-default-hash-style=gnu
-  make
-  make DESTDIR=$pkgdir install
-  rm -v $pkgdir/usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes,sframe}.{a,la}
+	cd binutils-$pkgver
+	sed '6031s/$add_dir//' -i ltmain.sh
+	mkdir -v build
+	cd build
+	../configure \
+		--prefix=/usr \
+		--build=$(../config.guess) \
+		--host=x86_64-dalix-linux-gnu \
+		--disable-nls \
+		--enable-shared \
+		--enable-gprofng=no \
+		--disable-werror \
+		--enable-64-bit-bfd \
+		--enable-new-dtags \
+		--enable-default-hash-style=gnu
+	make
+	make DESTDIR=$pkgdir install
+	rm -v $pkgdir/usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes,sframe}.{a,la}
 }
