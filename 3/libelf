@@ -9,6 +9,9 @@ sources=(
 
 depends=(
 	glibc
+	zlib
+	bzip2
+	zstd
 )
 
 makedepends=(
@@ -20,6 +23,10 @@ makedepends=(
 	gawk
 	grep
 	m4
+	bzip2
+	zstd
+	bison
+	flex
 )
 
 function build() {
