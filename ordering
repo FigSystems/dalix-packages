@@ -39,7 +39,7 @@ expat
 inetutils
 less
 perl
-xml-parser
+perl-xml-parser
 intltool
 autoconf
 automake
