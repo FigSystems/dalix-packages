@@ -27,6 +27,9 @@ makedepends=(
 	tar
 	bzip2
 	openssl
+	python
+	gdbm
+	pkgconf
 )
 
 function build() {
