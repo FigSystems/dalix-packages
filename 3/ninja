@@ -9,6 +9,7 @@ sources=(
 
 depends=(
 	glibc
+	gcc-libs
 )
 
 makedepends=(
