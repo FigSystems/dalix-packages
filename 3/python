@@ -34,7 +34,7 @@ makedepends=(
 
 function build() {
 	cd Python-$pkgver
-	./configure --prefix=/usr \
+	CXX="/usr/bin/g++" ./configure --prefix=/usr \
 		--enable-shared \
 		--with-system-expat \
 		--enable-optimizations
