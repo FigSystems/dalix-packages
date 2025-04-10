@@ -23,6 +23,9 @@ makedepends=(
 	grep
 	perl
 	autoconf
+	findutils
+	bison
+	flex
 )
 
 function build() {
