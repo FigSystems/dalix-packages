@@ -27,6 +27,10 @@ makedepends=(
 	perl
 	zstd
 	gettext
+	bison
+	m4
+	expect
+	python
 )
 
 depends_gcc=(
@@ -60,9 +64,11 @@ function build_gcc() {
 		--enable-default-ssp \
 		--enable-host-pie \
 		--disable-multilib \
-		--disable-bootstrap \
 		--disable-fixincludes \
-		--with-system-zlib
+		--with-system-zlib \
+		--with-system-libstdc++ \
+		--disable-bootstrap \
+		--without-static-standard-libraries
 	make
 	make DESTDIR=$pkgdir install
 	rm -rf $pkgdir/usr/lib
