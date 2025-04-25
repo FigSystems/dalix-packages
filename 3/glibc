@@ -27,6 +27,7 @@ makedepends=(
 	gzip
 	texinfo
 	gettext
+	"linux-api-headers"
 )
 
 function build() {
