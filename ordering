@@ -46,7 +46,7 @@ automake
 openssl
 libelf
 libffi
-Python
+python
 flit-core
 wheel
 setuptools
