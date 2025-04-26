@@ -1,0 +1,41 @@
+#!/bin/bash
+
+pkgname="kmod"
+pkgver="34"
+
+sources=(
+	"https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+	zstd
+	lz4
+	zlib
+	libxcrypt
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	meson
+	pkgconf
+	ninja
+)
+
+function build() {
+	cd kmod-$pkgver
+	mkdir build
+	cd build
+	meson setup --prefix=/usr .. \
+		--sbindir=/usr/sbin \
+		--buildtype=release \
+		-D manpages=false
+	ninja
+	DESTDIR="$pkgdir" ninja install
+}
