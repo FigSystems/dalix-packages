@@ -4,21 +4,21 @@ pkgname=""
 pkgver=""
 
 sources=(
-  ""
+	""
 )
 
 depends=(
-  glibc
+	glibc
 )
 
 makedepends=(
-  glibc
-  gcc
-  binutils
-  make
-  sed
-  gawk
-  grep
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
 )
 
 function build()
