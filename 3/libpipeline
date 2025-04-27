@@ -1,0 +1,30 @@
+#!/bin/bash
+
+pkgname="libpipeline"
+pkgver="1.5.8"
+
+sources=(
+	"https://download.savannah.gnu.org/releases/libpipeline/libpipeline-$pkgver.tar.gz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+)
+
+function build() {
+	cd libpipeline-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+}
