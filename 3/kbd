@@ -1,0 +1,35 @@
+#!/bin/bash
+
+pkgname="kbd"
+pkgver="2.7.1"
+
+sources=(
+	"https://www.kernel.org/pub/linux/utils/kbd/kbd-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	findutils
+	pkgconf
+	autoconf
+)
+
+function build() {
+	cd kbd-$pkgver
+	./configure --prefix=/usr --disable-vlock
+	make
+	make DESTDIR=$pkgdir install
+	mkdir -p $pkgdir/usr/share/doc
+	cp -R -v docs/doc -T $pkgdir/usr/share/doc/kbd-$pkgver
+}
