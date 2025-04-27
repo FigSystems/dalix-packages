@@ -1,0 +1,31 @@
+#!/bin/bash
+
+pkgname="check"
+pkgver="0.15.2"
+
+sources=(
+	"https://github.com/libcheck/check/releases/download/$pkgver/check-$pkgver.tar.gz"
+)
+
+depends=(
+	glibc
+	gawk
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+)
+
+function build() {
+	cd check-$pkgver
+	./configure --prefix=/usr --disable-static
+	make
+	make DESTDIR=$pkgdir docdir=/usr/share/doc/check-$pkgver install
+}
