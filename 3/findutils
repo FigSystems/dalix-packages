@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pkgname="findutils"
+pkgver="4.10.0"
+
+sources=(
+	"https://ftp.gnu.org/gnu/findutils/findutils-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+)
