@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pkgname="gawk"
+pkgver="5.3.1"
+
+sources=(
+	"https://ftp.gnu.org/gnu/gawk/gawk-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+)
+
+function build() {
+	cd gawk-$pkgver
+	sed -i 's/extras//' Makefile.in
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+	ln -sv gawk.1 $pkgdir/usr/share/man/man1/awk.1
+	install -vDm644 doc/{awkforai.txt,*.{eps,pdf,jpg}} -t $pkgdir/usr/share/doc/gawk-$pkgver
+}
