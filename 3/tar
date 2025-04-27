@@ -1,0 +1,32 @@
+#!/bin/bash
+
+pkgname="tar"
+pkgver="1.35"
+
+sources=(
+	"https://ftp.gnu.org/gnu/tar/tar-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	texinfo
+)
+
+function build() {
+	cd tar-$pkgver
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+	make -C doc DESTDIR=$pkgdir install-html docdir=/usr/share/doc/tar-$pkgver
+}
