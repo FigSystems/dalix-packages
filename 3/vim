@@ -1,0 +1,43 @@
+#!/bin/bash
+
+pkgname="vim"
+pkgver="9.1.1349"
+_versiondir=91
+
+sources=(
+	"https://github.com/vim/vim/archive/v$pkgver/vim-$pkgver.tar.gz"
+)
+
+depends=(
+	glibc
+	ncurses
+	acl
+)
+
+makedepends=(
+	ncurses
+	acl
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	findutils
+)
+
+function build() {
+	cd vim-$pkgver
+	echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >>src/feature.h
+	./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+	ln -sv vim $pkgdir/usr/bin/vi
+	for L in $pkgdir/usr/share/man/{,*/}man1/vim.1; do
+		ln -sv vim.1 $(dirname $L)/vi.1
+	done
+	mkdir -p $pkgdir/usr/share/doc
+	ln -sv ../vim/vim$_versiondir/doc $pkgdir/usr/share/doc/vim-$pkgver
+}
