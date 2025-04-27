@@ -1,0 +1,35 @@
+#!/bin/bash
+
+pkgname="iproute2"
+pkgver="6.13.0"
+
+sources=(
+	"https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+	libcap
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	pkgconf
+	bison
+	m4
+	findutils
+)
+
+function build() {
+	cd iproute2-$pkgver
+	make DESTDIR=$pkgdir NETNS_RUN_DIR=/run/netns
+	make DESTDIR=$pkgdir SBINDIR=/usr/sbin install
+	install -vDm644 COPYING README* -t $pkgdir/usr/share/doc/iproute2-$pkgver
+}
