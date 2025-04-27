@@ -1,0 +1,32 @@
+#!/bin/bash
+
+pkgname="groff"
+pkgver="1.23.0"
+
+sources=(
+	"https://ftp.gnu.org/gnu/groff/groff-$pkgver.tar.gz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	perl
+	m4
+)
+
+function build() {
+	cd groff-$pkgver
+	PAGE=letter ./configure --prefix=/usr
+	make
+	make DESTDIR=$pkgdir install
+}
