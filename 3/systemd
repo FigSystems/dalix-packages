@@ -15,6 +15,7 @@ depends=(
 	zstd
 	bzip2
 	acl
+	gcc-libs
 )
 
 makedepends=(
