@@ -42,6 +42,11 @@ makedepends=(
 	acl
 )
 
+glue_bin=1
+glue_glob=(
+	"/usr/lib/systemd/system/*"
+)
+
 function build() {
 	cd systemd-$pkgver
 	sed -e 's/GROUP="render"/GROUP="video"/' \
