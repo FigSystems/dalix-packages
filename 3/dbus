@@ -1,0 +1,38 @@
+#!/bin/bash
+
+pkgname="dbus"
+pkgver="1.16.0"
+
+sources=(
+	"https://dbus.freedesktop.org/releases/dbus/dbus-$pkgver.tar.xz"
+)
+
+depends=(
+	glibc
+	expat
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	make
+	sed
+	gawk
+	grep
+	diffutils
+	meson
+	ninja
+	expat
+	pkgconf
+)
+
+function build() {
+	cd dbus-$pkgver
+	mkdir build
+	cd build
+	meson setup --prefix=/usr --buildtype=release --wrap-mode=nofallback ..
+	ninja
+	DESTDIR=$pkgdir ninja install
+	# ln -sfv /etc/machine-id $pkgdir/var/lib/dbus/
+}
