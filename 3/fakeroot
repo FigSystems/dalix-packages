@@ -1,0 +1,39 @@
+#!/bin/bash
+
+pkgname="fakeroot"
+pkgver="1.37.1.1"
+
+sources=(
+	"https://salsa.debian.org/clint/fakeroot/-/archive/upstream/$pkgver/fakeroot-upstream-$pkgver.tar.gz"
+)
+
+depends=(
+	glibc
+)
+
+makedepends=(
+	glibc
+	gcc
+	binutils
+	grep
+	gawk
+	sed
+	diffutils
+	findutils
+	make
+	autoconf
+	automake
+	libtool
+	m4
+	gettext
+	texinfo
+)
+
+function build() {
+	cd fakeroot-upstream-$pkgver
+	./bootstrap
+	./configure --prefix=/usr --libdir=/usr/lib/ --disable-static 
+	make
+	touch doc/{de,es,fr,nl,pt,ro,pt,sv}/{faked.1,fakeroot.1}
+	make DESTDIR=$pkgdir install
+}
