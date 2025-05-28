@@ -34,5 +34,6 @@ function build() {
 	meson setup --prefix=/usr --buildtype=release --wrap-mode=nofallback ..
 	ninja
 	DESTDIR=$pkgdir ninja install
-	# ln -sfv /etc/machine-id $pkgdir/var/lib/dbus/
+	mkdir -p $pkgdir/var/lib/dbus
+	ln -sfv /etc/machine-id $pkgdir/var/lib/dbus/
 }
