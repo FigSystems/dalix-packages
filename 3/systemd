@@ -16,6 +16,8 @@ depends=(
 	bzip2
 	acl
 	gcc-libs
+	libcap
+	libxcrypt
 )
 
 makedepends=(
