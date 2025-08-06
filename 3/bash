@@ -25,6 +25,8 @@ makedepends=(
 	ncurses
 )
 
+glue_bin=1
+
 function build() {
 	cd bash-$pkgver
 	./configure --prefix=/usr \
